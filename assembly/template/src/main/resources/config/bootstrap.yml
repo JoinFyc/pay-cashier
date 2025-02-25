@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: base-code-generator
+app:
+  id: ${spring.application.name}
+server:
+  port: 8080
+apollo:
+  bootstrap:
+    enabled: true
+    namespaces: application
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.fei.base.dao.model

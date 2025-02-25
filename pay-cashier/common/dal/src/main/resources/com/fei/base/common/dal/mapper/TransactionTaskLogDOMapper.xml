@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fei.base.common.dal.mapper.TransactionTaskLogDOMapper">
+    <!-- 自动生成,请修改 TRANSACTION_TASK_LOG.xml -->
+    <resultMap id="BaseResultMap"  type="com.fei.base.common.dal.dataobject.TransactionTaskLogDO">
+        <id column="ID" property="id" jdbcType="BIGINT" javaType="Long"/>
+        <result column="STATUS" property="status" jdbcType="VARCHAR" javaType="String"/>
+        <result column="TASK_ID" property="taskId" jdbcType="VARCHAR" javaType="String"/>
+        <result column="TASK_TYPE" property="taskType" jdbcType="VARCHAR" javaType="String"/>
+        <result column="ERROR_CODE" property="errorCode" jdbcType="VARCHAR" javaType="String"/>
+        <result column="RETRY_STATUS" property="retryStatus" jdbcType="VARCHAR" javaType="String"/>
+        <result column="ERROR_MESSAGE" property="errorMessage" jdbcType="VARCHAR" javaType="String"/>
+        <result column="TASK_CLASS_NAME" property="taskClassName" jdbcType="VARCHAR" javaType="String"/>
+        <result column="REVERSAL_STATUS" property="reversalStatus" jdbcType="VARCHAR" javaType="String"/>
+        <result column="TRANSACTION_TYPE" property="transactionType" jdbcType="VARCHAR" javaType="String"/>
+        <result column="RESULT_ADDITIONAL_INFO" property="resultAdditionalInfo" jdbcType="VARCHAR" javaType="String"/>
+        <result column="REQUEST_ADDITIONAL_INFO" property="requestAdditionalInfo" jdbcType="VARCHAR" javaType="String"/>
+        <result column="TIMES" property="times" jdbcType="INTEGER" javaType="Integer"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="NEXT_EXECUTE_TIME" property="nextExecuteTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+    </resultMap>
+
+
+    <sql id="Base_SF_Column_List">
+        sf.ID,sf.STATUS,sf.TASK_ID,sf.TASK_TYPE,sf.ERROR_CODE
+        ,sf.RETRY_STATUS,sf.ERROR_MESSAGE,sf.TASK_CLASS_NAME,sf.REVERSAL_STATUS,sf.TRANSACTION_TYPE
+        ,sf.RESULT_ADDITIONAL_INFO,sf.REQUEST_ADDITIONAL_INFO,sf.TIMES,sf.CREATE_TIME,sf.UPDATE_TIME
+        ,sf.NEXT_EXECUTE_TIME
+    </sql>
+    <sql id="Base_Column_List">
+        ID,STATUS,TASK_ID,TASK_TYPE,ERROR_CODE 
+        ,RETRY_STATUS,ERROR_MESSAGE,TASK_CLASS_NAME,REVERSAL_STATUS,TRANSACTION_TYPE 
+        ,RESULT_ADDITIONAL_INFO,REQUEST_ADDITIONAL_INFO,TIMES,CREATE_TIME,UPDATE_TIME 
+        ,NEXT_EXECUTE_TIME
+    </sql>
+
+
+    <!--插入表:TRANSACTION_TASK_LOG-->
+    <insert id="insert" >
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT
+            LAST_INSERT_ID()
+        </selectKey>
+        <![CDATA[
+        INSERT INTO TRANSACTION_TASK_LOG(
+            ID
+            ,STATUS
+            ,TASK_ID
+            ,TASK_TYPE
+            ,ERROR_CODE
+            ,RETRY_STATUS
+            ,ERROR_MESSAGE
+            ,TASK_CLASS_NAME
+            ,REVERSAL_STATUS
+            ,TRANSACTION_TYPE
+            ,RESULT_ADDITIONAL_INFO
+            ,REQUEST_ADDITIONAL_INFO
+            ,TIMES
+            ,CREATE_TIME
+            ,UPDATE_TIME
+            ,NEXT_EXECUTE_TIME
+        )VALUES(
+             null
+            , #{status,jdbcType=VARCHAR}
+            , #{taskId,jdbcType=VARCHAR}
+            , #{taskType,jdbcType=VARCHAR}
+            , #{errorCode,jdbcType=VARCHAR}
+            , #{retryStatus,jdbcType=VARCHAR}
+            , #{errorMessage,jdbcType=VARCHAR}
+            , #{taskClassName,jdbcType=VARCHAR}
+            , #{reversalStatus,jdbcType=VARCHAR}
+            , #{transactionType,jdbcType=VARCHAR}
+            , #{resultAdditionalInfo,jdbcType=VARCHAR}
+            , #{requestAdditionalInfo,jdbcType=VARCHAR}
+            , #{times,jdbcType=INTEGER}
+            , #{createTime,jdbcType=TIMESTAMP}
+            , #{updateTime,jdbcType=TIMESTAMP}
+            , #{nextExecuteTime,jdbcType=TIMESTAMP}
+        )
+        ]]>
+    </insert>
+
+    <!--批量插入表:TRANSACTION_TASK_LOG-->
+    <insert id="insertBatch" >
+        INSERT INTO TRANSACTION_TASK_LOG(
+            ID
+            ,STATUS
+            ,TASK_ID
+            ,TASK_TYPE
+            ,ERROR_CODE
+            ,RETRY_STATUS
+            ,ERROR_MESSAGE
+            ,TASK_CLASS_NAME
+            ,REVERSAL_STATUS
+            ,TRANSACTION_TYPE
+            ,RESULT_ADDITIONAL_INFO
+            ,REQUEST_ADDITIONAL_INFO
+            ,TIMES
+            ,CREATE_TIME
+            ,UPDATE_TIME
+            ,NEXT_EXECUTE_TIME
+        )VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                 null
+                , #{item.status,jdbcType=VARCHAR}
+                , #{item.taskId,jdbcType=VARCHAR}
+                , #{item.taskType,jdbcType=VARCHAR}
+                , #{item.errorCode,jdbcType=VARCHAR}
+                , #{item.retryStatus,jdbcType=VARCHAR}
+                , #{item.errorMessage,jdbcType=VARCHAR}
+                , #{item.taskClassName,jdbcType=VARCHAR}
+                , #{item.reversalStatus,jdbcType=VARCHAR}
+                , #{item.transactionType,jdbcType=VARCHAR}
+                , #{item.resultAdditionalInfo,jdbcType=VARCHAR}
+                , #{item.requestAdditionalInfo,jdbcType=VARCHAR}
+                , #{item.times,jdbcType=INTEGER}
+                , #{item.createTime,jdbcType=TIMESTAMP}
+                , #{item.updateTime,jdbcType=TIMESTAMP}
+                , #{item.nextExecuteTime,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+
+    <!--根据主键删除数据:TRANSACTION_TASK_LOG-->
+    <delete id="deleteById" >
+        <![CDATA[
+        DELETE /*MS-TRANSACTION-TASK-LOG-DELETEBYID*/ FROM TRANSACTION_TASK_LOG
+        WHERE
+            ID = #{id,jdbcType=BIGINT}
+        ]]>
+    </delete>
+
+    <!--根据主键获取数据:TRANSACTION_TASK_LOG-->
+    <select id="getById" resultMap="BaseResultMap">
+        SELECT /*MS-TRANSACTION-TASK-LOG-GETBYID*/  <include refid="Base_Column_List" />
+        FROM TRANSACTION_TASK_LOG
+        WHERE
+        <![CDATA[
+            ID = #{id,jdbcType=BIGINT}
+        ]]>
+    </select>
+
+    <!--根据唯一约束UkTaskIdType更新表:TRANSACTION_TASK_LOG-->
+    <update id="updateByUkTaskIdType" >
+        <![CDATA[
+        UPDATE /*MS-TRANSACTION-TASK-LOG-UPDATEBYUKTASKIDTYPE*/ TRANSACTION_TASK_LOG
+        SET
+            STATUS          = #{status,jdbcType=VARCHAR}
+            ,ERROR_CODE      = #{errorCode,jdbcType=VARCHAR}
+            ,RETRY_STATUS    = #{retryStatus,jdbcType=VARCHAR}
+            ,ERROR_MESSAGE   = #{errorMessage,jdbcType=VARCHAR}
+            ,TASK_CLASS_NAME = #{taskClassName,jdbcType=VARCHAR}
+            ,REVERSAL_STATUS = #{reversalStatus,jdbcType=VARCHAR}
+            ,TRANSACTION_TYPE = #{transactionType,jdbcType=VARCHAR}
+            ,RESULT_ADDITIONAL_INFO = #{resultAdditionalInfo,jdbcType=VARCHAR}
+            ,REQUEST_ADDITIONAL_INFO = #{requestAdditionalInfo,jdbcType=VARCHAR}
+            ,TIMES           = #{times,jdbcType=INTEGER}
+            ,CREATE_TIME     = #{createTime,jdbcType=TIMESTAMP}
+            ,UPDATE_TIME     = #{updateTime,jdbcType=TIMESTAMP}
+            ,NEXT_EXECUTE_TIME = #{nextExecuteTime,jdbcType=TIMESTAMP}
+        WHERE
+            TASK_ID         = #{taskId,jdbcType=VARCHAR}
+            AND TASK_TYPE       = #{taskType,jdbcType=VARCHAR}
+        ]]>
+    </update>
+
+    <!--根据唯一约束UkTaskIdType删除数据:TRANSACTION_TASK_LOG-->
+    <delete id="deleteByUkTaskIdType" >
+        <![CDATA[
+        DELETE /*MS-TRANSACTION-TASK-LOG-DELETEBYUKTASKIDTYPE*/ FROM TRANSACTION_TASK_LOG
+        WHERE
+            TASK_ID         = #{taskId,jdbcType=VARCHAR}
+            AND TASK_TYPE       = #{taskType,jdbcType=VARCHAR}
+        ]]>
+    </delete>
+
+    <!--根据唯一约束UkTaskIdType获取数据:TRANSACTION_TASK_LOG-->
+    <select id="getByUkTaskIdType" resultMap="BaseResultMap">
+        SELECT /*MS-TRANSACTION-TASK-LOG-GETBYUKTASKIDTYPE*/  <include refid="Base_Column_List" />
+        FROM TRANSACTION_TASK_LOG
+        WHERE
+        <![CDATA[
+            TASK_ID         = #{taskId,jdbcType=VARCHAR}
+            AND TASK_TYPE       = #{taskType,jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <!--根据普通索引IdxNextExecuteTime获取数据:TRANSACTION_TASK_LOG-->
+    <select id="queryByIdxNextExecuteTime" resultMap="BaseResultMap">
+        SELECT /*MS-TRANSACTION-TASK-LOG-QUERYBYIDXNEXTEXECUTETIME*/  <include refid="Base_Column_List" />
+        FROM TRANSACTION_TASK_LOG
+        WHERE
+        <![CDATA[
+            NEXT_EXECUTE_TIME = #{nextExecuteTime,jdbcType=TIMESTAMP}
+            AND TRANSACTION_TYPE = #{transactionType,jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <!--根据普通索引IdxUpdateTime获取数据:TRANSACTION_TASK_LOG-->
+    <select id="queryByIdxUpdateTime" resultMap="BaseResultMap">
+        SELECT /*MS-TRANSACTION-TASK-LOG-QUERYBYIDXUPDATETIME*/  <include refid="Base_Column_List" />
+        FROM TRANSACTION_TASK_LOG
+        WHERE
+        <![CDATA[
+            UPDATE_TIME     = #{updateTime,jdbcType=TIMESTAMP}
+            AND TRANSACTION_TYPE = #{transactionType,jdbcType=VARCHAR}
+        ]]>
+    </select>
+</mapper>
